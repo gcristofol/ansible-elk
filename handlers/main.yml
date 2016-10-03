@@ -6,19 +6,19 @@
   sudo: yes
 
 - name: Restart elasticsearch
-  monit:
+  service:
     name=elasticsearch
     state=restarted
   sudo: yes
 
 - name: Restart logstash
-  monit:
+  service:
     name=logstash
     state=restarted
   sudo: yes
 
 - name: Restart nginx
-  monit:
+  service:
     name=nginx
     state=restarted
   sudo: yes

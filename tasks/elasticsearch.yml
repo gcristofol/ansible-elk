@@ -7,10 +7,14 @@
   sudo: yes
 
 - name: Install ES apt packages
-  apt: pkg=elasticsearch update_cache=yes state=latest
+  apt: pkg=elasticsearch update_cache=yes force=yes state=latest
   sudo: yes
   when: ansible_os_family == 'Debian'
   notify: Restart elasticsearch
+
+- name: Install PIP
+  apt: pkg=python-pip force=yes state=latest
+  sudo: yes
 
 - name: Curator PIP package
   pip: name=elasticsearch-curator state=latest
@@ -23,11 +27,3 @@
     owner=root group=root mode=644
   sudo: yes
   notify: Restart elasticsearch
-
-- name: Make monit to look after ES
-  template:
-    src=elasticsearch.monitrc.conf.j2
-    dest=/etc/monit/conf.d/elasticsearch.monitrc.conf
-    owner=root group=root mode=644
-  sudo: yes
-  notify: Restart monit

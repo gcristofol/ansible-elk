@@ -25,11 +25,3 @@
     - { path: 'default.conf' }
     - { path: 'example_ssl.conf' }
   sudo: yes
-
-- name: Make monit to look after nginx
-  template:
-    src=nginx.monitrc.conf.j2
-    dest=/etc/monit/conf.d/nginx.monitrc.conf
-    owner=root group=root mode=644
-  sudo: yes
-  notify: Restart monit

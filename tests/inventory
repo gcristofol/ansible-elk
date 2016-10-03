@@ -1,1 +1,1 @@
-localhost
+172.17.16.203  ansible_connection=ssh  ansible_user=vagrant ansible_ssh_pass=vagrant ansible_sudo_pass=vagrant ansible_sudo_user=vagrant
