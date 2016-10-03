@@ -1,0 +1,39 @@
+---
+
+- name: Installing unzip
+  apt: pkg=unzip
+       update_cache=yes
+       state=present 
+  sudo: yes
+
+- name: Creating dashboard directory
+  file: path=/opt/dashboards 
+        state=directory 
+        mode=0755
+  sudo: yes
+
+- name: Obtaining sample dashboards
+  unarchive: 
+    src=https://download.elastic.co/beats/dashboards/beats-dashboards-1.1.0.zip 
+    dest=/opt/dashboards
+    copy=no
+  sudo: yes    
+
+- name: Installing sample dashboards
+  command: sh load.sh
+  args:
+    chdir: '/opt/dashboards/beats-dashboards-1.1.0'
+  sudo: yes
+
+- name: Filebeat conf file
+  template:
+    src=filebeat-index-template.json.j2
+    dest=/tmp/filebeat-index-template.json
+    owner=root group=root mode=644
+  sudo: yes
+
+- name: Loading Filebeat index template
+  shell: curl -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@filebeat-index-template.json
+  args:
+    chdir: /tmp/
+

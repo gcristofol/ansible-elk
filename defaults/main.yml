@@ -9,7 +9,7 @@ elk_logstash:
   version: 2.4
   pid_file: /var/run/logstash.pid
   configs:
-    - { src: logstash-simple.conf.j2, dest: simple.conf }
+    - { src: logstash-simple.conf.j2, dest: logstash-simple.conf }
   patterns: [] # optional; follows same format as `configs`
 
 elk_kibana:

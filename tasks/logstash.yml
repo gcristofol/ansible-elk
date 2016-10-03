@@ -7,10 +7,9 @@
   sudo: yes
 
 - name: Install logstash apt packages
-  apt: pkg={{ item }} update_cache=yes state=present
+  apt: pkg={{ item }} update_cache=yes force=yes state=present
   with_items:
    - logstash
-   - logstash-contrib
   sudo: yes
   when: ansible_os_family == 'Debian'
   notify: Restart logstash
@@ -34,10 +33,3 @@
   when: elk_logstash.patterns is defined
   notify: Restart logstash
 
-- name: Make monit to look after Logstash
-  template:
-    src=logstash.monitrc.conf.j2
-    dest=/etc/monit/conf.d/logstash.monitrc.conf
-    owner=root group=root mode=644
-  sudo: yes
-  notify: Restart monit

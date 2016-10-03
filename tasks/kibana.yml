@@ -57,7 +57,7 @@
     
 - name: Nginx config file
   template:
-    src=kibana-default.j2
+    src=kibana-nginx-rp.j2
     dest=/etc/nginx/conf.d/kibana.conf
     owner=root group=root mode=644
   sudo: yes

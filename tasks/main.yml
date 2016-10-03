@@ -31,8 +31,11 @@
   include: kibana.yml
   tags: [elk]  
 
+- name: Install dashboard
+  include: dashboard.yml
+  tags: [dash]  
 
-#TODO install dashboards
-- name: Install Logstash
+
+- name: Install logstash
   include: logstash.yml
-  tags: [beats]  
+  tags: [logstash]  
