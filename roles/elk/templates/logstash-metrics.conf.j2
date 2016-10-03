@@ -1,0 +1,34 @@
+input { 
+	stdin { } 
+
+	generator {
+        type => "generated"
+    }
+}
+
+filter {
+  if [type] == "generated" {
+	metrics {
+	  meter => "events"
+	  add_tag => "metric"
+	}
+  }
+}
+
+output {
+  elasticsearch { 
+	hosts => ["localhost:9200"]
+	index => "logstash-%{+YYYY.MM.dd}"
+  }
+  
+  # only emit events with the 'metric' tag
+      if "metric" in [tags] {
+        stdout {
+          codec => line {
+            format => "rate: %{[events][rate_1m]}"
+          }
+        }
+      }
+  
+  stdout { codec => rubydebug }
+}

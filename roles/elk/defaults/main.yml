@@ -10,6 +10,7 @@ elk_logstash:
   pid_file: /var/run/logstash.pid
   configs:
     - { src: logstash-simple.conf.j2, dest: logstash-simple.conf }
+    - { src: logstash-metrics.conf.j2, dest: logstash-metrics.conf }
   patterns: [] # optional; follows same format as `configs`
 
 elk_kibana:
