@@ -63,6 +63,11 @@
     owner=root group=root mode=644
   sudo: yes
   notify: Restart nginx
+
+# Example action to start service supervisor (which manages kibana), if not running
+- name: ensure kibana is stopped
+  service: name=supervisor state=stopped
+  sudo: yes
   
 # Example action to start service supervisor (which manages kibana), if not running
 - name: ensure kibana is up

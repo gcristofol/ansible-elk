@@ -29,9 +29,13 @@
   notify: Restart elasticsearch
 
 # Example action to start service elasticsearch, if not running
+- name: ensure elasticsearch service is stopped
+  service: name=elasticsearch state=stopped
+  sudo: yes
+  
 - name: ensure elasticsearch service is up
   service: name=elasticsearch state=started
-  sudo: yes
+  sudo: yes  
   
 # wait 300 seconds for port 9200 to become open on the host, don't start checking for 10 seconds
 - name: wait for elasticsearch port

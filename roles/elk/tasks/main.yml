@@ -3,12 +3,20 @@
 
 - name: Include OS-specific variables
   include_vars: "{{ ansible_os_family }}.yml"
+  tags:
+    - elk
+    - dash
+    - logstash  
 
 - name: Install common apt packages
   apt: pkg={{ item }} state=latest update_cache=true
   with_items: "{{ elk_common_packages }}"
   become: yes
-
+  tags:
+    - elk
+    - dash
+    - logstash
+  
 - name: Install Java
   include: java.yml
   tags: [elk]   
@@ -34,7 +42,6 @@
 - name: Install dashboard
   include: dashboard.yml
   tags: [dash]  
-
 
 - name: Install logstash
   include: logstash.yml
