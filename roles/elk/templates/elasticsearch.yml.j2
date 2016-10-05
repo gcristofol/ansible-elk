@@ -12,7 +12,7 @@ script.groovy.sandbox.enabled: true
 
 ############################## Network And HTTP ###############################
 
-network.host: localhost
+network.host: [localhost, _eth0_ ]
 
 {% if elk_elasticsearch.http.port is defined %}
 http.port: {{ elk_elasticsearch.http.port }}

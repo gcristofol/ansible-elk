@@ -39,3 +39,4 @@
 - name: Install logstash
   include: logstash.yml
   tags: [logstash]  
+  

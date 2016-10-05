@@ -18,9 +18,13 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision "shell",
-    inline: "echo Hello, World"
+    inline: "echo Provision ELK Stack"
 	
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "playbook.yml"
+	ansible.raw_arguments = ["--tags=elk"]
   end
+  
+  config.vm.provision "shell",
+    inline: "ifconfig eth0 | grep 'inet addr' | awk '{print $2}'"   
 end
